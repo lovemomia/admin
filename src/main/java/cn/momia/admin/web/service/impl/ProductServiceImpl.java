@@ -74,7 +74,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product get(int id) {
-        String sql = "select id,cityId,categoryId,placeId,title,cover,crowd,content,sales,status,addTime from t_product where id = ? and status > ? ";
+        String sql = "select id,cityId,categoryId,tags,placeId,title,abstracts,thumb,cover,crowd,content,sales,startTime,endTime,status,addTime from t_product where id = ? and status > ? ";
         final Object [] params = new Object[]{id, FinalUtil.DEL_STATUS};
         final Product entity = new Product();
         jdbcTemplate.query(sql,params, new RowCallbackHandler(){
@@ -82,12 +82,17 @@ public class ProductServiceImpl implements ProductService {
                 entity.setId(rs.getInt("id"));
                 entity.setCityId(rs.getInt("cityId"));
                 entity.setCategoryId(rs.getInt("categoryId"));
+                entity.setTags(rs.getString("tags"));
                 entity.setPlaceId(rs.getInt("placeId"));
+                entity.setThumb(rs.getString("thumb"));
                 entity.setCover(rs.getString("cover"));
                 entity.setCrowd(rs.getString("crowd"));
                 entity.setTitle(rs.getString("title"));
+                entity.setAbstracts(rs.getString("abstracts"));
                 entity.setContent(rs.getString("content"));
                 entity.setSales(rs.getInt("sales"));
+                entity.setStartTime(rs.getString("startTime"));
+                entity.setEndTime(rs.getString("endTime"));
                 entity.setStatus(rs.getInt("status"));
                 entity.setAddTime(rs.getString("addTime"));
             }
@@ -99,7 +104,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getEntitys() {
         List<Product> reData = new ArrayList<Product>();
-        String sql = "select id,cityId,categoryId,placeId,title,cover,crowd,content,sales,status,addTime from t_product where status > ? order by id desc";
+        String sql = "select id,cityId,categoryId,tags,placeId,title,abstracts,thumb,cover,crowd,content,sales,startTime,endTime,status,addTime from t_product where status > ? order by id desc";
         Object [] params = new Object[]{FinalUtil.DEL_STATUS};
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, params);
         if(list.size() > 0){
@@ -108,12 +113,17 @@ public class ProductServiceImpl implements ProductService {
                 entity.setId(Integer.parseInt(list.get(i).get("id").toString()));
                 entity.setCityId(Integer.parseInt(list.get(i).get("cityId").toString()));
                 entity.setCategoryId(Integer.parseInt(list.get(i).get("categoryId").toString()));
+                entity.setTags(list.get(i).get("tags").toString());
                 entity.setPlaceId(Integer.parseInt(list.get(i).get("placeId").toString()));
                 entity.setTitle(list.get(i).get("title").toString());
+                entity.setAbstracts(list.get(i).get("abstracts").toString());
+                entity.setThumb(list.get(i).get("thumb").toString());
                 entity.setCover(list.get(i).get("cover").toString());
                 entity.setCrowd(list.get(i).get("crowd").toString());
                 entity.setContent(list.get(i).get("content").toString());
                 entity.setSales(Integer.parseInt(list.get(i).get("sales").toString()));
+                entity.setStartTime(list.get(i).get("startTime").toString());
+                entity.setEndTime(list.get(i).get("endTime").toString());
                 entity.setStatus(Integer.parseInt(list.get(i).get("status").toString()));
                 entity.setAddTime(list.get(i).get("addTime").toString());
                 reData.add(entity);
@@ -126,7 +136,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> getEntitysByKey(int categoryId) {
         List<Product> reData = new ArrayList<Product>();
-        String sql = "select id,cityId,categoryId,placeId,title,cover,crowd,content,sales,status,addTime from t_product where categoryId = ? and status > ? ";
+        String sql = "select id,cityId,categoryId,tags,placeId,title,abstracts,thumb,cover,crowd,content,sales,startTime,endTime,status,addTime from t_product where categoryId = ? and status > ? ";
         Object [] params = new Object[]{categoryId, FinalUtil.DEL_STATUS};
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, params);
         if(list.size() > 0){
@@ -135,12 +145,17 @@ public class ProductServiceImpl implements ProductService {
                 entity.setId(Integer.parseInt(list.get(i).get("id").toString()));
                 entity.setCityId(Integer.parseInt(list.get(i).get("cityId").toString()));
                 entity.setCategoryId(Integer.parseInt(list.get(i).get("categoryId").toString()));
+                entity.setTags(list.get(i).get("tags").toString());
                 entity.setPlaceId(Integer.parseInt(list.get(i).get("placeId").toString()));
                 entity.setTitle(list.get(i).get("title").toString());
+                entity.setAbstracts(list.get(i).get("abstracts").toString());
+                entity.setThumb(list.get(i).get("thumb").toString());
                 entity.setCover(list.get(i).get("cover").toString());
                 entity.setCrowd(list.get(i).get("crowd").toString());
                 entity.setContent(list.get(i).get("content").toString());
                 entity.setSales(Integer.parseInt(list.get(i).get("sales").toString()));
+                entity.setStartTime(list.get(i).get("startTime").toString());
+                entity.setEndTime(list.get(i).get("endTime").toString());
                 entity.setStatus(Integer.parseInt(list.get(i).get("status").toString()));
                 entity.setAddTime(list.get(i).get("addTime").toString());
                 reData.add(entity);
@@ -152,16 +167,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public int insert(Product entity) {
-        String sql = "insert into t_product(cityId,categoryId,placeId,title,cover,crowd,content,sales,status,addTime) value(?, ?, ?, ?, ?, ?, ?, ?, ?, NOW()) ";
-        Object [] params = new Object[]{entity.getCityId(),entity.getCategoryId(), entity.getPlaceId(), entity.getTitle(), entity.getCover(),entity.getCrowd(), "", FinalUtil.ADD_INFO, FinalUtil.OFFLINE_STATUS};
+        String sql = "insert into t_product(cityId,categoryId,tags,placeId,title,abstracts,thumb,cover,crowd,content,sales,startTime,endTime,status,addTime) value(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW()) ";
+        Object [] params = new Object[]{entity.getCityId(),entity.getCategoryId(), entity.getTags(), entity.getPlaceId(), entity.getTitle(), entity.getAbstracts(), entity.getThumb(), entity.getCover(), entity.getCrowd(), "", FinalUtil.ADD_INFO, entity.getStartTime(),entity.getEndTime(),FinalUtil.OFFLINE_STATUS};
         int reData = jdbcTemplate.update(sql,params);
         return reData;
     }
 
     @Override
     public int update(Product entity) {
-        String sql = "update t_product set cityId = ?, categoryId = ? ,placeId = ?, title = ?, cover = ?, crowd = ? where id = ? ";
-        Object [] params = new Object[]{entity.getCityId(), entity.getCategoryId(),entity.getPlaceId(), entity.getTitle(),entity.getCover(),entity.getCrowd(), entity.getId()};
+        String sql = "update t_product set cityId = ?, categoryId = ?, tags = ?, placeId = ?, title = ?, abstracts = ?, thumb = ?, cover = ?, crowd = ?, startTime = ?, endTime = ? where id = ? ";
+        Object [] params = new Object[]{entity.getCityId(), entity.getCategoryId(), entity.getTags(), entity.getPlaceId(), entity.getTitle(), entity.getAbstracts(), entity.getThumb(), entity.getCover(), entity.getCrowd(), entity.getStartTime(), entity.getEndTime(), entity.getId()};
         int reData = jdbcTemplate.update(sql,params);
         return reData;
     }
@@ -207,12 +222,33 @@ public class ProductServiceImpl implements ProductService {
         entity.setCategoryId(Integer.parseInt(request.getParameter("categoryId")));
         entity.setPlaceId(Integer.parseInt(request.getParameter("placeId")));
         entity.setTitle(request.getParameter("title"));
+        entity.setAbstracts(request.getParameter("abstracts"));
+        entity.setThumb(request.getParameter("thumb"));
         entity.setCover(request.getParameter("cover"));
         entity.setCrowd(request.getParameter("crowd"));
+        entity.setStartTime(request.getParameter("startTime"));
+        entity.setEndTime(request.getParameter("endTime"));
+        String [] tags = request.getParameterValues("tag");
+        String temp = "";
+        if (null != tags && tags.length > 0){
+            for (int i = 0; i < tags.length; i++) {
+                temp = temp + "," + tags[i];
+            }
+            entity.setTags(temp.substring(1,temp.length()));
+        }else{
+            entity.setTags("");
+        }
 
         return entity;
     }
 
+    /**
+     * 获取内容Content 的Json的字符串 －－title,style,body
+     * @param req
+     * @param contentJson
+     * @param flag
+     * @return
+     */
     @Override
     public String getContentJsonStr(HttpServletRequest req, String contentJson, int flag){
         List<DataBean> ls = new ArrayList<DataBean>();
@@ -240,10 +276,16 @@ public class ProductServiceImpl implements ProductService {
         return JSONObject.toJSONString(ls);
     }
 
+    /**
+     * 获取内容Content 的Json的字符串 －－body
+     * @param req
+     * @param intx
+     * @return
+     */
     public List<Content> getBodys(HttpServletRequest req,int intx){
         List<Content> ls_c = new ArrayList<Content>();
 
-        for (int i = 1; i < 6; i++) {
+        for (int i = 1; i < 10; i++) {
             Content content = new Content();
 
             String texti = "text" + intx + i;
@@ -269,7 +311,7 @@ public class ProductServiceImpl implements ProductService {
                 String text = req.getParameter(texti);
                 content.setText(text);
                 String images = req.getParameter(imagesi);
-                Images imgs = imagesService.uploadImgs(req,1,images);
+                Images imgs = imagesService.uploadImg(req,1,images);
                 if (imgs.getUrl() == null || imgs.getUrl().trim().equals("")){
                     String hidparami = "hidparam" + intx + i;
                     String url = req.getParameter(hidparami);
@@ -290,34 +332,40 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 修改图片开始
-     * @param contentJson
+     * @param //contentJson
      * @return
      */
-    @Override
-    public Map<String, String> getContentJsontoMap(String contentJson) {
-        Map<String, String> reData = new HashMap<String, String>();
-        List<DataBean> ls = new ArrayList<DataBean>();
-        StringBuffer hidden = new StringBuffer();
-        StringBuffer sb = new StringBuffer();
-        StringBuffer buffer = new StringBuffer();
-        if (contentJson != null && !contentJson.equals("")) {
-            ls = getDataBean(contentJson);
-            hidden.append("<input id='contentsize' name='contentsize' type='hidden' value='" + ls.size() + "'>");
-            reData.put("hidden", hidden.toString());
-            for (int i = 0; i < ls.size(); i++) {
-                DataBean entity = ls.get(i);
-                int intx = i + 1;
-                String hrefname = "#tabs-" + intx;
-                sb.append("<li><a href='" + hrefname + "'>" + entity.getTitle() + "</a></li>");
-                buffer.append(getTitleAndStyle(entity,intx));
-            }
+ //   @Override
+//    public Map<String, String> getContentJsontoMap(String contentJson) {
+//        Map<String, String> reData = new HashMap<String, String>();
+//        List<DataBean> ls = new ArrayList<DataBean>();
+//        StringBuffer hidden = new StringBuffer();
+//        StringBuffer sb = new StringBuffer();
+//        StringBuffer buffer = new StringBuffer();
+//        if (contentJson != null && !contentJson.equals("")) {
+//            ls = getDataBean(contentJson);
+//            hidden.append("<input id='contentsize' name='contentsize' type='hidden' value='" + ls.size() + "'>");
+//            reData.put("hidden", hidden.toString());
+//            for (int i = 0; i < ls.size(); i++) {
+//                DataBean entity = ls.get(i);
+//                int intx = i + 1;
+//                String hrefname = "#tabs-" + intx;
+//                sb.append("<li><a href='" + hrefname + "'>" + entity.getTitle() + "</a></li>");
+//                buffer.append(getTitleAndStyle(entity,intx));
+//            }
+//
+//            reData.put("tabsli", sb.toString());
+//            reData.put("contentstr", buffer.toString());
+//        }
+//        return reData;
+//    }
 
-            reData.put("tabsli", sb.toString());
-            reData.put("contentstr", buffer.toString());
-        }
-        return reData;
-    }
-
+    /**
+     * 根据content信息组装标题(title)和样式(style)
+     * @param entity
+     * @param intx
+     * @return
+     */
     public String getTitleAndStyle(DataBean entity,int intx){
         StringBuffer buffer = new StringBuffer();
         String idname = "tabs-" + intx;
@@ -353,6 +401,13 @@ public class ProductServiceImpl implements ProductService {
         return buffer.toString();
 
     }
+
+    /**
+     *根据content列表组装修改页面的标签及内容
+     * @param ls
+     * @param intx
+     * @return
+     */
     public String getContentJsonStr(List<Content> ls,int intx){
         StringBuffer sb = new StringBuffer();
         sb.append("<div class='control-group' style='border:1px solid #0000ff'>");
@@ -436,13 +491,19 @@ public class ProductServiceImpl implements ProductService {
         return sb.toString();
     }
 
+    /**
+     * 根据每个标签的已有数量，补充够9个总数
+     * @param intx
+     * @param intsize
+     * @return
+     */
     public String getFillContent(int intx,int intsize){
 
         StringBuffer sb = new StringBuffer();
-        int inty = 5 - intsize;
+        int inty = 9 - intsize;
         int intz = intsize + 1;
         if (inty > 0) {
-            for (int j = intz; j < 6; j++) {
+            for (int j = intz; j < 10; j++) {
                 String textid = "text" + intx + j;
                 String labelid = "label" + intx + j;
                 String linkid = "link" + intx + j;
@@ -470,35 +531,36 @@ public class ProductServiceImpl implements ProductService {
 
         return sb.toString();
     }
-/************end**************/
 
 
     /**
-     * 组装预览数据
+     * 预览活动信息
      * @param id
      * @return
      */
-
     @Override
     public String getPreviewInfo(int id){
         Product product = this.get(id);
 
         StringBuffer reData = new StringBuffer();
+        //标题
         reData.append("<tr><p><h2>");
         reData.append(product.getTitle());
         reData.append("</h2></p></tr>");
-        reData.append("<tr><p>");
+        //图片
+        reData.append("<tr>");
         List<ProductImg> imgs = productImgService.getEntitysByKey(id);
         if (imgs.size()>0) {
             for (int i = 0; i < imgs.size(); i++) {
                 int intx = i + 1;
                 String img_id = "img" + intx;
-                reData.append("<p><img id='"+img_id+"' src='"+ConfigUtil.loadProperties().getProperty("serverPath")+ imgs.get(i).getUrl()+"'></img><br></p>");
+                reData.append("<p><img id='" + img_id + "' src='" + ConfigUtil.loadProperties().getProperty("serverPath") + imgs.get(i).getUrl() + "'></img><br></p>");
             }
         }else{
             reData.append("<p><img id='img1' src='' alt = '没有图片'></img><br></p>");
         }
-        reData.append("</p></tr>");
+        reData.append("</tr>");
+
         Place place = placeService.get(product.getPlaceId());
         Category category = categoryService.get(product.getCategoryId());
         City city = cityService.get(product.getCityId());
@@ -552,7 +614,12 @@ public class ProductServiceImpl implements ProductService {
                 }else  if(link != null && !link.equals("")){
                     reData.append("<p><a href="+link+" >"+text+"</a></p>");
                 }else if(img != null && !img.equals("")){
+                    if(text != null && !text.equals("")){
+                        reData.append(text);
+                        reData.append("<br>");
+                    }
                     reData.append("<img id='drimg"+k+"' src='"+ConfigUtil.loadProperties().getProperty("serverPath")+ img +"'></img><br>");
+                    reData.append("<br>");
                 }else{
                     if(text != null && !text.equals("")){
                         reData.append("<p>");
@@ -606,6 +673,11 @@ public class ProductServiceImpl implements ProductService {
         return ls;
     }
 
+    /**
+     * 根据活动列表，填充其他相关数据
+     * @param products
+     * @return
+     */
     @Override
     public List<Product> getEntities(List<Product> products){
         if(products.size() > 0){
@@ -629,10 +701,16 @@ public class ProductServiceImpl implements ProductService {
         return products;
     }
 
+    /**
+     * 活动分页方法
+     * @param start_row
+     * @param end_row
+     * @return
+     */
     @Override
     public List<Product> getQueryPages(int start_row,int end_row) {
         List<Product> reData = new ArrayList<Product>();
-        String sql = "select id,cityId,categoryId,placeId,title,cover,crowd,content,sales,status,addTime from t_product where status > ? order by id desc limit "+start_row+","+end_row;
+        String sql = "select id,cityId,categoryId,placeId,title,thumb,cover,crowd,content,sales,startTime,endTime,status,addTime from t_product where status > ? order by id desc limit "+start_row+","+end_row;
         Object [] params = new Object[]{FinalUtil.DEL_STATUS};
         List<Map<String, Object>> list = jdbcTemplate.queryForList(sql, params);
         if(list.size() > 0){
@@ -643,9 +721,12 @@ public class ProductServiceImpl implements ProductService {
                 entity.setCategoryId(Integer.parseInt(list.get(i).get("categoryId").toString()));
                 entity.setPlaceId(Integer.parseInt(list.get(i).get("placeId").toString()));
                 entity.setTitle(list.get(i).get("title").toString());
+                entity.setThumb(list.get(i).get("thumb").toString());
                 entity.setCover(list.get(i).get("cover").toString());
                 entity.setCrowd(list.get(i).get("crowd").toString());
                 entity.setContent(list.get(i).get("content").toString());
+                entity.setStartTime(list.get(i).get("startTime").toString());
+                entity.setEndTime(list.get(i).get("endTime").toString());
                 entity.setSales(Integer.parseInt(list.get(i).get("sales").toString()));
                 entity.setStatus(Integer.parseInt(list.get(i).get("status").toString()));
                 entity.setAddTime(list.get(i).get("addTime").toString());

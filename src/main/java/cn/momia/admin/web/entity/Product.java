@@ -10,12 +10,17 @@ public class Product {
     private int id;
     private int cityId;
     private int categoryId;
+    private String tags;
     private int placeId;
     private String title;
+    private String abstracts;
     private String cover;
+    private String thumb;
     private String crowd;
     private String content;
     private int sales;
+    private String startTime;
+    private String endTime;
     private int status;
     private String addTime;
     private String updateTime;
@@ -50,6 +55,14 @@ public class Product {
         this.categoryId = categoryId;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     public int getPlaceId() {
         return placeId;
     }
@@ -64,6 +77,14 @@ public class Product {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 
     public String getCrowd() {
@@ -82,6 +103,14 @@ public class Product {
         this.title = title;
     }
 
+    public String getAbstracts() {
+        return abstracts;
+    }
+
+    public void setAbstracts(String abstracts) {
+        this.abstracts = abstracts;
+    }
+
     public String getContent() {
         return content;
     }
@@ -96,6 +125,22 @@ public class Product {
 
     public void setSales(int sales) {
         this.sales = sales;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
     public int getStatus() {

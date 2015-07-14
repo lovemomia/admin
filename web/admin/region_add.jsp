@@ -78,24 +78,38 @@
             <div class="box span12">
                 <div class="row-fluid sortable">
                     <div class="box-header well" data-original-title>
-                        <h2><i class="icon-user"></i> 增加用户</h2>
+                        <h2><i class="icon-user"></i> 增加区域</h2>
                         <div class="box-icon">
-                            <a href="${ctx}/user/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
+                            <a href="${ctx}/region/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <form class="form-horizontal" id="userform" action="${ctx}/user/add.do?uid=${user.id}&pageNo=1" method="post">
+                        <form class="form-horizontal" id="vform" action="${ctx}/region/add.do?uid=${user.id}&pageNo=1" method="post">
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label">用户名称</label>
+                                    <label class="control-label" >选择城市</label>
                                     <div class="controls">
-                                        <input class="required" id="username" name="username" type="text" value="">${msg}
+                                        <select id="cityId" name="cityId">
+                                            <c:forEach items="${citys}" var="node">
+                                                <option value="${node.id}">${node.name}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">用户密码</label>
+                                    <label class="control-label" >选择区域</label>
                                     <div class="controls">
-                                        <input class="required" id="password" name="password" type="text" value="">
+                                        <select id="parentId" name="parentId">
+                                            <c:forEach items="${entitys}" var="node">
+                                                <option value="${node.id}">${node.name}</option>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">区域名称</label>
+                                    <div class="controls">
+                                        <input class="required" id="name" name="name" type="text" value="" >
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -198,7 +212,7 @@
 
 <script language="JavaScript">
     $(function() {
-        $("#userform").validate();
+        $("#vform").validate();
     });
 </script>
 

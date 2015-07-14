@@ -78,24 +78,18 @@
             <div class="box span12">
                 <div class="row-fluid sortable">
                     <div class="box-header well" data-original-title>
-                        <h2><i class="icon-user"></i> 增加用户</h2>
+                        <h2><i class="icon-user"></i> 增加城市</h2>
                         <div class="box-icon">
-                            <a href="${ctx}/user/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
+                            <a href="${ctx}/city/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <form class="form-horizontal" id="userform" action="${ctx}/user/add.do?uid=${user.id}&pageNo=1" method="post">
+                        <form class="form-horizontal" id="vform" action="${ctx}/city/add.do?uid=${user.id}&pageNo=1" method="post">
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label">用户名称</label>
+                                    <label class="control-label">城市名称</label>
                                     <div class="controls">
-                                        <input class="required" id="username" name="username" type="text" value="">${msg}
-                                    </div>
-                                </div>
-                                <div class="control-group">
-                                    <label class="control-label">用户密码</label>
-                                    <div class="controls">
-                                        <input class="required" id="password" name="password" type="text" value="">
+                                        <input class="required" id="name" name="name" type="text" value="" >
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -197,9 +191,12 @@
 <script src="${ctx}/admin/js/messages_zh.js"></script>
 
 <script language="JavaScript">
+
     $(function() {
-        $("#userform").validate();
+
+        $("#vform").validate();
     });
+
 </script>
 
 </body>

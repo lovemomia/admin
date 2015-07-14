@@ -78,24 +78,52 @@
             <div class="box span12">
                 <div class="row-fluid sortable">
                     <div class="box-header well" data-original-title>
-                        <h2><i class="icon-user"></i> 增加用户</h2>
+                        <h2><i class="icon-user"></i> 区域修改</h2>
                         <div class="box-icon">
-                            <a href="${ctx}/user/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
+                            <a href="${ctx}/region/info.do?uid=${user.id}&pageNo=${pageNo}" class="btn btn-back btn-round"><i class="icon-remove"></i></a>
                         </div>
                     </div>
                     <div class="box-content">
-                        <form class="form-horizontal" id="userform" action="${ctx}/user/add.do?uid=${user.id}&pageNo=1" method="post">
+                        <form class="form-horizontal" id="vform" action="${ctx}/region/edit.do?uid=${user.id}&id=${model.id}&pageNo=${pageNo}" method="post">
                             <fieldset>
                                 <div class="control-group">
-                                    <label class="control-label">用户名称</label>
+                                    <label class="control-label">选择城市</label>
                                     <div class="controls">
-                                        <input class="required" id="username" name="username" type="text" value="">${msg}
+                                        <select id="cityId" name="cityId">
+                                            <c:forEach items="${citys}" var="node">
+                                                <c:choose>
+                                                    <c:when test="${node.id == model.cityId}">
+                                                        <option value="${node.id}" selected>${node.name}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${node.id}"  >${node.name}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <label class="control-label">用户密码</label>
+                                    <label class="control-label">选择区域</label>
                                     <div class="controls">
-                                        <input class="required" id="password" name="password" type="text" value="">
+                                        <select id="parentId" name="parentId">
+                                            <c:forEach items="${entitys}" var="node">
+                                                <c:choose>
+                                                    <c:when test="${node.id == model.parentId}">
+                                                        <option value="${node.id}" selected>${node.name}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="${node.id}"  >${node.name}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:forEach>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label class="control-label">区域名称</label>
+                                    <div class="controls">
+                                        <input class="required" id="name" name="name" type="text" value="${model.name}">
                                     </div>
                                 </div>
                                 <div class="form-actions">
@@ -103,7 +131,6 @@
                                 </div>
                             </fieldset>
                         </form>
-                    </div>
                 </div>
             </div>
             </div>
@@ -191,6 +218,7 @@
 <script src="${ctx}/admin/js/jquery.history.js"></script>
 <!-- application script for Charisma demo -->
 <script src="${ctx}/admin/js/charisma.js"></script>
+
 <!--验证框架js-->
 <script src="${ctx}/admin/js/jquery.validate.js"></script>
 <script src="${ctx}/admin/js/messages.js"></script>
@@ -198,9 +226,8 @@
 
 <script language="JavaScript">
     $(function() {
-        $("#userform").validate();
+        $("#vform").validate();
     });
 </script>
-
 </body>
 </html>

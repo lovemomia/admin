@@ -82,12 +82,12 @@
                     <div>1001</div>
                 </a>
                 <a data-rel="tooltip" class="well span3 top-block" href="${ctx}/place/info.do?uid=${user.id}&pageNo=1">
-                    <span class="icon32 icon-color icon-home"></span>
+                    <span class="icon32 icon-orange icon-image"></span>
                     <div>活动地址</div>
                     <div>1002</div>
                 </a>
                 <a data-rel="tooltip" class="well span3 top-block" href="${ctx}/product/info.do?uid=${user.id}&pageNo=1">
-                    <span class="icon32 icon-red icon-image"></span>
+                    <span class="icon32 icon-red icon-flag"></span>
                     <div>活动编辑</div>
                     <div>1003</div>
                 </a>
@@ -99,16 +99,26 @@
                 </a>
             </div>
             <div class="sortable row-fluid">
+                <!--<a data-rel="tooltip" class="well span3 top-block" href="${ctx}/city/info.do?uid=${user.id}&pageNo=1">
+                    <span class="icon32 icon-orange icon-home"></span>
+                    <div>城市编辑</div>
+                    <div>1005</div>
+                </a>
+                <a data-rel="tooltip" class="well span3 top-block" href="${ctx}/region/info.do?uid=${user.id}&pageNo=1">
+                    <span class="icon32 icon-red icon-globe"></span>
+                    <div>区域编辑</div>
+                    <div>1006</div>
+                </a>-->
                 <a data-rel="tooltip" class="well span3 top-block" href="${ctx}/user/info.do?uid=${user.id}&pageNo=1">
                     <span class="icon32 icon-orange icon-user"></span>
                     <div>后台用户</div>
                     <div>1005</div>
                 </a>
-                <!--<a data-rel="tooltip" class="well span3 top-block" href="${ctx}/property/info.do?uid=${user.id}">
-                    <span class="icon32 icon-color icon-book"></span>
-                    <div>属性管理</div>
+                <a data-rel="tooltip" class="well span3 top-block" href="${ctx}/coupon/info.do?uid=${user.id}&pageNo=1">
+                    <span class="icon32 icon-red icon-heart"></span>
+                    <div>红包管理</div>
                     <div>1006</div>
-                </a>-->
+                </a>
             </div>
             </div>
             <!-- content ends -->

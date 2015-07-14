@@ -42,4 +42,17 @@ public class FileUtil {
     public static final String SKU_PRODUCT = "sku_product";
     public static final String SKU_PRICE = "sku_price";
 
+    //城市区域相关文件跳转
+    public static final String CITY = "city";
+    public static final String CITY_ADD = "city_add";
+    public static final String CITY_EDIT = "city_edit";
+    public static final String REGION = "region";
+    public static final String REGION_ADD = "region_add";
+    public static final String REGION_EDIT = "region_edit";
+
+    //红包信息相关文件跳转
+    public static final String COUPON = "coupon";
+    public static final String COUPON_ADD = "coupon_add";
+    public static final String COUPON_EDIT = "coupon_edit";
+
 }
